@@ -1,15 +1,19 @@
-docker build - < Dockerfile
+# Packer + ansible
 
+This images is made to build packer images with ansible provisionner on a gitlab pipeline.
 
-# Docker Image for Ansible compatible with mitogen
+## Test image locally
 
-This docker image contains ansbile version 2.10.7 that is the last one compatible with mitogen, in order to speed up heavy deployements.
-It also contains all the required packages and collections in order to create vms and to manage them.
+  #Build image
+  docker build -t packerimage .
+  #Run container from this image
+  docker run --name packercontainer -d -P packerimage
+  #Enter container
+  docker exec -it packercontainer bash
 
-On gitlab > Settings > repository > deploy token
+## Using on gitlab runner
 
-Create new with username CI, select all scopes
+Packer need a special runner to process this jobs:
 
-On gitlab > Settings > CI/CD > variables > add variable
-
-CI_BUILD_TOKEN with previous token code
+	- open port to hypervisor api
+	- docker in network host mode

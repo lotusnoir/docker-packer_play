@@ -12,5 +12,6 @@ RUN ansible-galaxy collection install community.general community.crypto communi
 RUN wget -q https://releases.hashicorp.com/packer/1.8.3/packer_1.8.3_linux_amd64.zip \
     && unzip packer_1.8.3_linux_amd64.zip \
     && mv packer /usr/local/bin
-
-CMD [""]
+RUN apt-get update -y \
+    && apt-get install --no-install-recommends xorriso mkisofs -y \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* 
